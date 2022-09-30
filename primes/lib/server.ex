@@ -1,7 +1,11 @@
 defmodule Server do
-    def start(n_workers, upper_bound) do
-      block = div(upper_bound, n_workers)
 
+    @doc """
+    Assigns to n_workers a range to find prime numbers.
+    Each range has the same length.
+    """
+    def range_primes_finder(n_workers, upper_bound) do
+      block = div(upper_bound, n_workers)
       0..(n_workers - 1)
       |> Enum.to_list()
       |> Enum.map(fn wid ->
@@ -9,6 +13,34 @@ defmodule Server do
       |> Enum.map(fn _ -> Worker.get_result() end)
       |> Enum.concat()
       |> Enum.sort()
-      |> IO.inspect()
     end
+
+    @doc """
+    One process coordinates the n_workers to find all
+    the prime numbers up to the given upper_bound
+    """
+    def dispenser_primes_finder(n_workers, upper_bound) do
+      intervals = intervals(n_workers, upper_bound)
+      leader = Worker.leader(intervals, n_workers)
+      0..(n_workers - 1)
+      |> Enum.map(fn _ -> Worker.child(leader) end)
+      
+      Worker.get_result()
+      |> Enum.reverse()
+      |> Enum.concat()
+    end
+
+    defp intervals(n_workers, upper_bound) do
+      block = div(upper_bound, n_workers*2)
+      0..((n_workers*2) - 1)
+      |> Enum.map(fn id -> {id * block + 1, min((id + 1) * block, upper_bound)} end)
+    end
+
+    @doc """
+    One process finds the primes number given a upper bound
+    """
+    def sieve(upper_bound) do
+      Algebra.primes_to(upper_bound)
+    end
+
 end
