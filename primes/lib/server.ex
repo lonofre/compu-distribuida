@@ -3,6 +3,11 @@ defmodule Server do
     @doc """
     Assigns to n_workers a range to find prime numbers.
     Each range has the same length.
+
+    ## Receives
+
+      - n_workers: Integer that indicates the total number of processes
+        that compute the prime numbers
     """
     def range_primes_finder(n_workers, upper_bound) do
       block = div(upper_bound, n_workers)
@@ -16,8 +21,13 @@ defmodule Server do
     end
 
     @doc """
-    One process coordinates the n_workers to find all
-    the prime numbers up to the given upper_bound
+    One process coordinates the `n_workers` to find all
+    the prime numbers up to the given `upper_bound`
+
+    ## Receives
+
+      - n_workers: Integer that indicates the total number of processes
+        that compute the prime numbers.
     """
     def dispenser_primes_finder(n_workers, upper_bound) do
       intervals = intervals(n_workers, upper_bound)

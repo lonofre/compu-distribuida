@@ -1,21 +1,17 @@
-# Primes
+# Cálculo de números primos
 
-**TODO: Add description**
+## Cómo ejecutar 🚀🚀
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `primes` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:primes, "~> 0.1.0"}
-  ]
-end
+Primero se compila:
+```bash
+mix compile
+```
+Después, para ejecutar todo el proyecto:
+```bash
+mix run --no-halt
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/primes](https://hexdocs.pm/primes).
-
+## Integrantes 😎
+- Barón Herrera Victoria Elena 315650383
+- Onofre Franco José Luis 420003117
+- Vargas Bravo Paola 318074755

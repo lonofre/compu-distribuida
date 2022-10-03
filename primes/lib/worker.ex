@@ -3,6 +3,15 @@ defmodule Worker do
   @doc """
   Creates a process that is used once. It generates
   the primes number from a giver range
+
+  ## Parameters
+
+    - from: Integer that indicates the lower bound
+    - to: Integer that indicates the upper bound
+
+  ## Returns
+    
+    - `PID` of the process
   """
   def start(from, to) do
     caller = self()
@@ -15,6 +24,9 @@ defmodule Worker do
     Enum.filter(from..to, &Algebra.is_prime2?/1)
   end
 
+  @doc """
+  Receives the prime numbers calculated by a process
+  """  
   def get_result do
     receive do
       {:ok, primes} -> primes
@@ -22,11 +34,17 @@ defmodule Worker do
   end
 
   @doc """
-  The leader process who contains state
+  Creates a leader process who coordinates and stores the computation
+  of prime numbers
+
+  ## Receives
+      - intervals: List of tuples, each interval indicates the search space
+        of the prime numbers
+      - n_children: Integer that indicates the number of children
   """
-  def leader(intervals, n_childs) do
+  def leader(intervals, n_children) do
     caller = self()
-    data = %{intervals: intervals, primes: [], childs: n_childs}
+    data = %{intervals: intervals, primes: [], children: n_children}
     spawn(fn -> leader_loop(caller, data) end)
   end
 
@@ -58,10 +76,10 @@ defmodule Worker do
           
           leader_loop(caller, new_data)
         end
-      # Waits to all its childs finish
+      # Waits to all its children to finish
       {:ok} ->
-        new_data = Map.put(data, :childs, data.childs - 1)
-        if new_data.childs == 0 do
+        new_data = Map.put(data, :children, data.children - 1)
+        if new_data.children == 0 do
           send(caller, {:ok, new_data.primes})
         else
           leader_loop(caller, new_data)
@@ -70,7 +88,10 @@ defmodule Worker do
   end
 
   @doc """
-  Process that find prime numbers
+  Creates a process that finds prime numbers
+
+  ## Receives
+    - parent: `PID` of the parent process
   """
   def child(parent) do
     spawn(fn -> 
@@ -83,7 +104,7 @@ defmodule Worker do
     receive do
       # Do work
       {:primes, from, to} ->
-        primes = find_primes2(from, to)
+        primes = find_primes(from, to)
         send(parent, {:primes, primes, self()})
         child_loop(parent)
       {:finish} ->
