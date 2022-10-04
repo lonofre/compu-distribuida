@@ -38,6 +38,7 @@ defmodule Server do
       Worker.get_result()
       |> Enum.reverse()
       |> Enum.concat()
+      |> Enum.sort()
     end
 
     defp intervals(n_workers, upper_bound) do
