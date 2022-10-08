@@ -16,4 +16,4 @@ Después, para ejecutar todo el proyecto:
 mix run --no-halt
 ```
 
-El resultado es un archivo `primes.txt` que los números primos.
+El resultado es un archivo `primes.txt` con los números primos.
