@@ -1,5 +1,10 @@
 # Cálculo de números primos
 
+Calculos los números primos usando diferentes técnicas:
+- Criba de Eratóstenes, usando un sólo proceso.
+- Usando `n` procesos con rangos fijos.
+- Usando `n` procesos coordinados por otro, de tal modo que un proceso al terminar su trabajo, se le asigna otro.
+
 ## Cómo ejecutar 🚀🚀
 
 Primero se compila:
@@ -11,7 +16,4 @@ Después, para ejecutar todo el proyecto:
 mix run --no-halt
 ```
 
-## Integrantes 😎
-- Barón Herrera Victoria Elena 315650383
-- Onofre Franco José Luis 420003117
-- Vargas Bravo Paola 318074755
+El resultado es un archivo `primes.txt` que los números primos.
