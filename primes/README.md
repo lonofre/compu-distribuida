@@ -13,7 +13,11 @@ mix compile
 ```
 Después, para ejecutar todo el proyecto:
 ```bash
-mix run --no-halt
+mix run --no-halt --mode [MODE] --bound [BOUND] --workers [WORKERS]
 ```
+donde:
+- `MODE` es `sieve` para usar la Criba de Eratóstenes, `range` para usar procesos con rangos iguales y `dispenser` para usar un proceso extra que cordine a todos los procesos.
+- `BOUND` hasta que cota superior se van a buscar los números primos.
+- `WORKERS` es el número de procesos que se encargan de procesar los números primos. Sólo para los modos `range` y `dispenser`. 
 
 El resultado es un archivo `primes.txt` con los números primos.
