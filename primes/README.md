@@ -13,7 +13,7 @@ mix compile
 ```
 Después, para ejecutar todo el proyecto:
 ```bash
-mix run --no-halt --mode [MODE] --bound [BOUND] --workers [WORKERS]
+mix run --no-halt "empty.exs" --mode [MODE] --bound [BOUND] --workers [WORKERS]
 ```
 donde:
 - `MODE` es `sieve` para usar la Criba de Eratóstenes, `range` para usar procesos con rangos iguales y `dispenser` para usar un proceso extra que coordine a todos los procesos.
