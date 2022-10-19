@@ -9,35 +9,6 @@ defmodule Algebra do
   end
 
   @doc """
-  Finds if a number is prime by dividing from its root to 1
-  """
-  def is_prime2?(1), do: false
-  def is_prime2?(n) when n > 1 do
-    if rem(n, 2) == 0 && n != 2 do
-      false
-    else
-      root = :math.sqrt(n) |> trunc()
-      divider = if rem(root, 2) == 0 do
-          root - 1
-        else 
-          root
-        end
-      is_prime_dummy?(n, divider)
-    end
-  end
-
-  defp is_prime_dummy?(_, 1), do: true
-
-  defp is_prime_dummy?(n, divider) do
-    if rem(n, divider) == 0 do
-      false
-    else
-      is_prime_dummy?(n, divider - 2)
-    end
-  end
-
-
-  @doc """
   Finds all primes given a limit
   """
   def primes_to(n) do
