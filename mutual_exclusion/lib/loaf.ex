@@ -19,6 +19,8 @@ defmodule Loaf do
       {:buy} ->
         if slices == 0 do
           loop(max_quantity, max_quantity)
+        else
+          loop(max_quantity, slices)
         end
       {:bread?, roomie} ->
         response = slices > 0
