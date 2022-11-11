@@ -21,3 +21,7 @@ def get_mensajes_buzon (buzon_id) do
       {:mensajes, ms} ->
           ms
   end
+
+  def empty_buzon(buzon_id) do
+    send(buzon_id, {:empty})
+  end

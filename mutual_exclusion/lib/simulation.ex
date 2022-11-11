@@ -5,7 +5,8 @@ defmodule Simulation do
     {:ok, loaf}
 
    buzon_Alice = BuzonAlice.start()
-   alice = Alice.start(buzon_bob, loaf)
+   buzon_Bob = BuzonBob.start()
+   alice = Alice.start(buzon_bob,buzon_Alice, loaf)
 
   end
 
