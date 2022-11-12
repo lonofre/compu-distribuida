@@ -12,6 +12,7 @@ defmodule Loaf do
     receive do
       {:reduce} ->
         if slices > 0 do
+          IO.puts("* slices: " <> to_string(slices))
           if slices - 1 == 0 do
             IO.puts("! No more bread")
           end
@@ -28,6 +29,7 @@ defmodule Loaf do
       {:bread?, roomie} ->
         response = slices > 0
         send(roomie, {:bread?, response})
+        loop(max_quantity, slices)
     end
   end
 

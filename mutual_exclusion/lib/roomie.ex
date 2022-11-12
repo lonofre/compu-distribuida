@@ -17,20 +17,22 @@ defmodule Roomie do
       send(roomie_mailbox, {:add, :release2})
     end
 
+    IO.puts(["- ", name, " is waiting"])
     waiting_orders(mailbox, roomie_mailbox)
+    IO.puts(["- ", name, " is approved"])
 
     send(loaf, {:bread?, self()})
     receive do
       {:bread?, bread?} ->
         if not bread? do
-          IO.puts(["- ", name, "is buying more bread"])
+          IO.puts(["- ", name, " is buying more bread"])
           Process.sleep(2000)
           send(loaf, {:buy})
         end
     end
 
     send(roomie_mailbox, {:add, :release1})
-    IO.puts(["- ", name, ["is leaving home"]])
+    IO.puts(["- ", name, [" is leaving home"]])
     algorithm(name, mailbox, roomie_mailbox, loaf)
   end
 
@@ -42,8 +44,8 @@ defmodule Roomie do
   end
 
   defp hanging_around() do
-    random_number = :rand.uniform(10)
-    # up to 10 seconds
+    random_number = :rand.uniform(20)
+    # up to 20 seconds
     Process.sleep(1000 * random_number)
   end
 end
