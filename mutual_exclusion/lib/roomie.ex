@@ -7,7 +7,7 @@ defmodule Roomie do
 
   defp algorithm(name, mailbox, roomie_mailbox, loaf) do
     hanging_around()
-    IO.puts(["- ", name, " is coming home"])
+    IO.puts(["- ", name, "  is coming home"])
     send(roomie_mailbox, {:add, :acquire1})
     {_, _, _, b2} = Mailbox.states(mailbox, roomie_mailbox)
 
@@ -23,14 +23,14 @@ defmodule Roomie do
     receive do
       {:bread?, bread?} ->
         if not bread? do
-          IO.puts(["- ", name, "is buying more bread"])
+          IO.puts(["- ", name, " is buying more bread"])
           Process.sleep(2000)
           send(loaf, {:buy})
         end
     end
 
     send(roomie_mailbox, {:add, :release1})
-    IO.puts(["- ", name, ["is leaving home"]])
+    IO.puts(["- ", name, [" is leaving home"]])
     algorithm(name, mailbox, roomie_mailbox, loaf)
   end
 
