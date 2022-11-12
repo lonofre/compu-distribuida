@@ -1,13 +1,15 @@
 defmodule Simulation do
 
   def start() do
-   loaf = Loaf.start(20)
-    {:ok, loaf}
+    loaf = Loaf.start(20)
+    
+    alice_mailbox = Mailbox.start()
+    bob_mailbox = Mailbox.start()
 
-   buzon_Alice = BuzonAlice.start()
-   buzon_Bob = BuzonBob.start()
-   alice = Alice.start(buzon_bob,buzon_Alice, loaf)
+    Roomie.start("Alice", alice_mailbox, bob_mailbox, loaf)
+    Roomie.start("Bob", bob_mailbox, alice_mailbox, loaf)
 
+    {:ok, self()}
   end
 
 end

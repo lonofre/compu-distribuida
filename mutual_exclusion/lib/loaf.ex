@@ -12,6 +12,9 @@ defmodule Loaf do
     receive do
       {:reduce} ->
         if slices > 0 do
+          if slices - 1 == 0 do
+            IO.puts("! No more bread")
+          end
           loop(max_quantity, slices - 1)
         else
           loop(max_quantity, 0)
