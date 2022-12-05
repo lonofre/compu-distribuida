@@ -1,18 +1,20 @@
 defmodule Consensus do
-  @moduledoc """
-  Documentation for `Consensus`.
-  """
+  def start(friends) do
 
-  @doc """
-  Hello world.
+    ids = 1..friends
+        |> Enum.map(fn _ -> Friend.start() end)
 
-  ## Examples
+    send_ids(ids, ids)
 
-      iex> Consensus.hello()
-      :world
-
-  """
-  def hello do
-    :world
   end
+
+  defp send_ids([], ids) do
+    {:ok, self()}
+  end
+
+  defp send_ids([id | xs], ids) do
+    send(id, {:start, ids, self()})
+    send_ids(xs, ids)
+  end
+
 end
