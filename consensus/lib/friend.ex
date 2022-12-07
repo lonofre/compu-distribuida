@@ -23,7 +23,7 @@ defmodule Friend do
     if is_dead? do
         until = :rand.uniform(length(friends))
         kill(until, friends, movie)
-        send(parent,{:muerto,self()})
+        send(parent,{:dead, self()})
     else
       friends
       |> Enum.map(fn friend -> send(friend, {:movie, movie}) end)
@@ -31,7 +31,6 @@ defmodule Friend do
       if length(friends) == round + 1 do
         send(parent, {:choice, self(), movie})
       else
-        IO.puts(round)
         choose_movie(parent, friends, choice, round)
       end
     end
@@ -52,7 +51,6 @@ defmodule Friend do
         receive_movie([movie|mail])
     after
       8_000 ->
-        #Despues de 8 se segundos#
         mail
     end
   end
